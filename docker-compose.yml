@@ -6,6 +6,7 @@ services:
 
 volumes:
   postgres_catalog:
-    
 
-
+networks:
+  default:
+    name: dotnet-microservices
