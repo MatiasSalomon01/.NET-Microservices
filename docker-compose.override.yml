@@ -1,14 +1,14 @@
 version: '3.4'
 
 services:
-  catalog.api:
+  catalogdb:
+    container_name: catalogdb
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=CatalogDb
+    restart: always
     ports:
-      - "8080"
-      - "8081"
+      - "5432:5432"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - postgres_catalog:/var/lib/postgresql/data/
