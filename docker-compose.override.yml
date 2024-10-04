@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.9'
 
 services:
   catalogdb:
@@ -9,6 +9,6 @@ services:
       - POSTGRES_DB=CatalogDb
     restart: always
     ports:
-      - "5432:5432"
+      - "5431:5432"
     volumes:
       - postgres_catalog:/var/lib/postgresql/data
