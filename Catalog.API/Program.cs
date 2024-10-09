@@ -1,3 +1,5 @@
+using Catalog.API.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 IConfiguration config = builder.Configuration;
@@ -12,6 +14,11 @@ builder.Services.AddMediatR(conf =>
 builder.Services.AddMarten(opt => opt.Connection(config.GetConnectionString("Database")!)).UseLightweightSessions();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.InitializeMartenWith<CatalogInitialData>();
+}
 
 var app = builder.Build();
 
