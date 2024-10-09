@@ -4,9 +4,16 @@ services:
   catalogdb:
     image: postgres:17-alpine
 
+  catalog.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    build:
+      context: .
+      dockerfile: Catalog.API/Dockerfile
+
 volumes:
   postgres_catalog:
 
 networks:
   default:
     name: dotnet-microservices
+
