@@ -1,5 +1,3 @@
-using BuildingBlocks.Behaviours;
-
 var builder = WebApplication.CreateBuilder(args);
 
 IConfiguration config = builder.Configuration;
@@ -12,9 +10,11 @@ builder.Services.AddMediatR(conf =>
 });
 builder.Services.AddMarten(opt => opt.Connection(config.GetConnectionString("Database")!)).UseLightweightSessions();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
 
+app.UseExceptionHandler(x => { });
 app.MapCarter();
 
 app.Run();
