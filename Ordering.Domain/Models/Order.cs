@@ -1,4 +1,6 @@
-﻿namespace Ordering.Domain.Models;
+﻿using Ordering.Domain.Events;
+
+namespace Ordering.Domain.Models;
 
 public class Order : Aggregate<OrderId>
 {
@@ -32,7 +34,7 @@ public class Order : Aggregate<OrderId>
             Status = OrderStatus.Pending,
         };
 
-        //order.AddDomainEvent(new OrderCreatedEvent(order));
+        order.AddDomainEvent(new OrderCreatedEvent(order));
 
         return order;
     }
@@ -45,7 +47,7 @@ public class Order : Aggregate<OrderId>
         BillingAddress = billingAddress;
         Payment = payment;
 
-        //AddDomainEvent(new OrderUpdaterdEvent(this));
+        AddDomainEvent(new OrderUpdatedEvent(this));
     }
 
     public void Add(ProductId productId, int quantity, decimal price)
