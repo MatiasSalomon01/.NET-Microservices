@@ -1,0 +1,1 @@
+﻿public record OrderName(string Value);
